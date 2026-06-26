@@ -4,7 +4,7 @@
 
 [![ICML 2026 Workshop](https://img.shields.io/badge/ICML%202026-AI%20for%20Math%2C%20CS%20%26%20ML-blue?style=flat-square&logo=academia)](https://openreview.net/forum?id=9YTedapat4)
 [![Paper](https://img.shields.io/badge/OpenReview-9YTedapat4-red?style=flat-square&logo=openreview)](https://openreview.net/forum?id=9YTedapat4)
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-green?style=flat-square)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square&logo=python)](https://www.python.org/)
 [![Project Website](https://img.shields.io/badge/Website-QuantumQUBO%20Agent-purple?style=flat-square&logo=github)](https://quitttcat.github.io/QuantumQUBOAgent/)
 
@@ -459,6 +459,6 @@ If you use the benchmark problems, also cite [QUBOBench](https://quitttcat.githu
 
 ## License
 
-This project is released under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](LICENSE).
+This project is released under the [MIT License](LICENSE).
 
 © 2026 Niloy Kumar Mondal, Md Rizwan Parvez

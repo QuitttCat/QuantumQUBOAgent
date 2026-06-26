@@ -9,7 +9,7 @@ authors:
     given-names: Md Rizwan
 repository-code: "https://github.com/QuitttCat/QuantumQUBOAgent"
 url: "https://quitttcat.github.io/QuantumQUBOAgent/"
-license: CC-BY-4.0
+license: MIT
 year: 2026
 preferred-citation:
   type: conference-paper
