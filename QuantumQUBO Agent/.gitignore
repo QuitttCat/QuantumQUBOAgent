@@ -1,0 +1,39 @@
+# Environment / secrets
+.env
+*.env
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# LLM cache (dev artefact, not for repo)
+transcripts/.llm_cache.json
+
+# Test / build artefacts
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Results (populated by runs — commit selectively)
+results/runs.jsonl
+results/failure_modes.json
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db

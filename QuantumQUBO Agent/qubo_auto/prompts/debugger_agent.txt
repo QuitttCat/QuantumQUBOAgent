@@ -1,0 +1,38 @@
+You are converting human-written optimization problem instances into structured JSON test cases.
+
+Problem type:
+{problem_prompt}
+
+QUBO Formulation (use this to understand variable layout and objective convention):
+{formulation_context}
+
+Required JSON schema for each test case:
+{
+  "name": "<short snake_case id, e.g. n4_dense >",
+  "description": "<one sentence about this specific instance>",
+  "n_variables": <int — do NOT copy the formulation's n_variables field directly; that is a template for a small example and will be wrong for other sizes. Instead, compute n_variables from THIS instance's actual parameters using the formula described in the formulation's variable_mapping. For example: if variable_mapping says "x_{i,j} [formula: N*(N-1)]" and this instance has N=4, then n_variables = 12. If it says "N^2", then n_variables = 16. Always derive from the instance, never copy the schema value.>,
+  "instance": {
+    <all data the solver needs, with key names consistent with the variable_mapping above>
+  },
+  "ground_truth": {
+    "optimal_value": <float — QUBO convention: negated for maximization, raw for minimization>,
+    "optimal_bitstrings": [[0,1,0,...], ...]
+  }
+}
+
+User-provided instances:
+{raw_input}
+
+Instructions:
+- Extract ALL test cases present in the input (there may be one or more).
+- Use the formulation's variable_mapping and instance_parameters to choose correct instance keys.
+- n_variables: compute it from the instance parameters using the formula in variable_mapping — do NOT copy the integer from the formulation schema. The formulation's n_variables is a template example only.
+- optimal_bitstrings: list of lists of 0/1 integers. Include ALL optimal solutions the user listed.
+- optimal_value: QUBO stores the objective in minimization form.
+  If the problem is MAXIMIZATION (objective.direction = maximize), NEGATE the user's stated value.
+  If the problem is MINIMIZATION (objective.direction = minimize), keep the value as-is.
+- edges format: list of [i, j, weight] triples (0-indexed nodes).
+- If the user did not give a name, generate one like "n4_case1".
+- If any source of this test case is mentioned in the input, include the exact link/doi/citation in the description.
+
+Respond with a JSON array containing one object per test case. No prose. No markdown fences.

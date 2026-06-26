@@ -1,0 +1,52 @@
+You are an expert in QUBO formulations. Convert this structured spec into a QUBO of the form: minimize x^T Q x + offset, x in {0,1}^n.
+
+Spec: {spec_json}
+
+Steps to follow:
+1. Map each variable family to indices in [0, n-1]. Record this in `variable_mapping` as a dict from variable name pattern to starting index (e.g., "x_i": 0).
+2. Express the objective as quadratic terms. For maximization, negate ALL coefficients (QUBO always minimizes).
+   CRITICAL — maximization sign convention example (max-cut edge weight w):
+     WRONG: diagonal += +w,  off-diagonal += -2*w   (this minimizes +cut, all-same partition scores 0)
+     RIGHT: diagonal += -w,  off-diagonal += +2*w   (this minimizes -cut, optimal partition scores most negative)
+   Every coefficient in objective_terms must be negated when the problem is maximization — no exceptions.
+3. For each constraint, add a penalty term using the CORRECT form:
+   - Equality: sum_i x_i = k  →  penalty * (sum_i x_i - k)^2  (expands into diagonal + off-diagonal terms)
+   - Pairwise inequality x_i + x_j <= 1 (binary vars)  →  penalty * x_i * x_j  (product only — NOT (x_i+x_j-1)^2 which is an equality penalty and penalizes (0,0) pairs, breaking the formulation)
+   - General inequality sum_i x_i <= k (binary vars, k>=1)  →  introduce slack bits or use penalty * max(0, sum_i x_i - k)^2 expanded carefully
+   CRITICAL: (x_i + x_j - 1)^2 = 1 for (0,0) AND (1,1) — it is an EQUALITY penalty, NOT an inequality. NEVER use it to encode x_i + x_j <= 1.
+4. Choose penalty weight large enough that violating the constraint costs more than the best possible objective gain. For pairwise x_i*x_j penalty, lambda > |max single-variable objective coefficient| suffices. Justify numerically in `penalty_justification`.
+5. For coefficients that depend on instance data (e.g., edge weights w_ij, item values v_i): write them as symbolic strings like "w_ij", "v_i", "-w_ij". The coder will substitute real values at runtime.
+6. For fixed numeric coefficients (penalty expansions like 2*lambda): write actual numbers.
+
+Respond with this exact JSON structure (fill in values, do not return a schema):
+{
+  "n_variables": <integer — use the SMALLEST meaningful concrete size (e.g. N=3 for a 3-city problem gives 6 directed-edge variables). ALL indices in objective_terms and penalty_terms must be valid integers for this template size.>,
+  "variable_mapping": {"<var_name> [formula: <general expression in N or M>]": <start_index>},
+  "objective_terms": [
+    {"coefficient": <number or "symbolic_expr">, "var_indices": [i]},
+    {"coefficient": <number or "symbolic_expr">, "var_indices": [i, j]}
+  ],
+  "penalty_terms": [
+    {
+      "constraint_name": "<name>",
+      "penalty_weight": <number>,
+      "terms": [
+        {"coefficient": <number>, "var_indices": [i]},
+        {"coefficient": <number>, "var_indices": [i, j]}
+      ]
+    }
+  ],
+  "penalty_justification": "<explanation with numbers AND the general formula for n_variables as a function of the problem size parameter, e.g. 'n = N*(N-1) directed edges for N cities'>",
+  "offset": <number>
+}
+
+CRITICAL — generalisation rule:
+- All var_indices must be concrete integers valid for the template size — NEVER write symbolic strings like "i*(N-1)+j".
+- Embed the general variable-count formula (e.g. N*(N-1), N^2, M) as text inside the variable_mapping key and inside penalty_justification. The coder reads this to know how to compute n at runtime; the test-case builder reads this to compute n_variables per instance.
+
+CRITICAL — constant terms rule:
+- Every entry in objective_terms and penalty_terms[*].terms MUST reference at least one variable: var_indices must contain 1 or 2 integers — NEVER an empty list [].
+- Constant values that arise from expanding a penalty (e.g. the "+k^2" from (sum x_i - k)^2) must be collected and added to the top-level "offset" field, NOT placed as a QUBOTerm with var_indices: [].
+- If a penalty expansion produces a pure constant, add it to "offset" and omit it from "terms" entirely.
+
+Respond with JSON only. No prose. No markdown fences.

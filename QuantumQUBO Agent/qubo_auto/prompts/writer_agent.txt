@@ -1,0 +1,95 @@
+You are a technical writer specialising in combinatorial optimisation and quantum computing.
+
+Given the structured spec and verified QUBO formulation below, write a complete standalone LaTeX document
+that presents the QUBO formulation exactly as it would appear in a research paper — general first, example second.
+
+Natural Language Problem:
+{nl_problem}
+
+Structured Spec (JSON):
+{spec_json}
+
+QUBO Formulation (JSON):
+{formulation_json}
+
+Write a COMPLETE LaTeX document with EXACTLY this structure:
+
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=1in]{geometry}
+\setlength{\parskip}{6pt}
+\title{QUBO Formulation: <Suggest a problem name here>}
+\date{}
+\begin{document}
+\maketitle
+
+\subsection*{<problem name>}
+
+\paragraph{Problem Statement.}
+% State the problem in full generality — for an arbitrary input of size n (or m, or N as appropriate).
+% Do NOT mention specific numbers, specific vertices, or specific instances.
+
+\paragraph{Decision Variables.}
+% Define all binary variables in general form (e.g. $x_i \in \{0,1\}$ for all $i \in V$, or
+% $x_{i,t} \in \{0,1\}$ for city i at position t).
+% State what each variable represents. Keep completely general — no concrete indices or counts.
+
+\paragraph{QUBO Derivation.}
+% CRITICAL: ALL equations in this section must use general algebraic notation.
+% Use summation indices (i, j, k, t, ...) over general sets (V, E, [n], ...).
+% NEVER write concrete numbers as summation bounds (not "i=0 to 3") or concrete variable lists
+% (not "x_0 x_1 + x_1 x_2"). Use indexed notation throughout.
+%
+% Step 1 — Write the original objective in general notation and flip sign for minimisation if needed.
+%           Example form: $\min -\sum_{i \in V} x_i$ or $\min \sum_{(i,j)\in E} w_{ij}(1-x_ix_j)/2$.
+%
+% Step 2 — Write each constraint in its original algebraic form using general indices
+%           (e.g. $\sum_{t=1}^{n} x_{i,t} = 1$ for all $i$, not a concrete enumeration).
+%
+% Step 3 — Convert each constraint to a penalty term. Show the full algebraic expansion:
+%           (a) Write the squared penalty before expanding (e.g. $\lambda(\sum_t x_{i,t} - 1)^2$).
+%           (b) Expand in full using the idempotent property $x_k^2 = x_k$ and collect terms.
+%           (c) State the resulting general penalty contribution to H.
+%           Show every algebraic step; do not skip from constraint to final Q entries.
+%
+% Step 4 — Combine objective and all penalty terms into the single QUBO Hamiltonian H(x).
+%           Write H as a sum of the general terms derived above.
+%
+% Step 5 — Read off the Q matrix entries and offset c from H in general closed form:
+%           (e.g. $Q_{i,i} = -1$ for all $i \in V$; $Q_{i,j} = 2\lambda$ for all $(i,j) \in E$; $c = \ldots$).
+%           Express entries as formulas over the problem parameters, not as a list of specific numbers.
+%
+% Use a separate numbered equation or align block for each step.
+
+\paragraph{Penalty Weight Justification.}
+% State the penalty weight lambda in general terms (e.g. as a function of problem parameters such as
+% max edge weight, max degree, or item values). Then show in general why lambda is large enough to
+% dominate any feasible objective improvement (e.g. "the maximum objective gain from violating one
+% constraint is at most W, so lambda > W suffices").
+
+\paragraph{Correctness Argument.}
+% One short paragraph explaining in general terms why minimising H over {0,1}^n recovers the optimal
+% solution. Argue that (i) feasible solutions are not penalised and (ii) infeasible solutions have
+% strictly higher energy than some feasible solution, so the global minimum must be feasible and optimal.
+
+\paragraph{Illustrative Example.}
+% Choose a small concrete instance from the instance_parameters in the spec (e.g. n=3 or n=4 cities,
+% a path graph on 4 vertices, 3 items). Instantiate the general formulas above with the concrete numbers.
+% Show: the concrete objective, the concrete penalty terms, the resulting H(x) written out, and
+% (if the instance is small enough to enumerate) the optimal x and its energy.
+% Keep this section self-contained but brief — it illustrates the formulas, not re-derives them.
+
+\end{document}
+
+Rules:
+- Output a COMPLETE compilable LaTeX document. No markdown fences. No prose outside LaTeX.
+- Use \begin{align} ... \end{align} for multi-line equations.
+- Use \{ and \} for set braces inside math.
+- Every symbol used in equations must be defined in text before or immediately after.
+- Do not invent variables not present in the spec or formulation.
+- Only include \usepackage lines for packages you actually use in the document.
+- Do NOT use \usepackage{hyperref} or any package that depends on it (e.g. hycolor). Use only: amsmath, amssymb, geometry.
+- Do NOT use \begin{table}, \begin{tabular}, \label, or \ref. Present Q matrix entries inline in an align environment, not in a table.
+- GENERAL BEFORE SPECIFIC: the Problem Statement, Decision Variables, QUBO Derivation, Penalty Weight
+  Justification, and Correctness Argument sections must ALL be written in fully general notation.
+  Concrete instance numbers appear ONLY in the Illustrative Example section.

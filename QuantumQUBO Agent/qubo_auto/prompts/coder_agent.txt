@@ -1,0 +1,30 @@
+Write a Python function that builds the Q matrix for this QUBO formulation.
+
+Spec: {spec_json}
+
+Formulation: {formulation_json}
+
+{sample_instance}
+
+Requirements:
+- Function signature: `def build_qubo(instance: dict) -> tuple[np.ndarray, float]`
+- n = number of binary variables — ALWAYS compute from instance parameters using the formula in variable_mapping (e.g. instance['N']*(instance['N']-1) for directed-edge encoding, instance['N']**2 for position encoding). NEVER use the formulation's n_variables field as a literal — it is a template for one size only. Q must be (n, n) where n is derived from the actual instance at runtime.
+- Return (Q, offset) where Q is an UPPER TRIANGULAR numpy array of shape (n, n).
+- Symbolic coefficients in the formulation (e.g. "a_i", "w_ij") must be substituted with actual values from instance at runtime.
+- Diagonal term [i]: add coefficient to Q[i,i].
+- Off-diagonal term [i,j] with i != j: ALWAYS write to Q[min(i,j), max(i,j)] (the upper triangle).
+  Add the FULL coefficient there. DO NOT split it. Leave Q[max, min] = 0.
+- If offset is symbolic (e.g. "A**2"), compute it from instance values (e.g. sum(instance['numbers'])**2).
+- No imports beyond numpy.
+
+Energy convention: x^T Q x = sum_i Q[i,i] x_i + sum_{i<j} Q[i,j] x_i x_j.
+With upper triangular Q, the off-diagonal coefficient appears exactly once per (i,j) pair.
+
+Verification: your function will be tested by enumerating ALL 2^n binary strings x in {0,1}^n,
+computing x^T Q x + offset for each, and checking that the x with minimum QUBO energy
+is the SAME binary string that minimizes the original problem objective. The Q matrix
+must correctly encode the problem so the argmin matches — not just the energy value.
+
+{previous_feedback}
+
+Output: Python code only, in a single ```python ... ``` block. No other text.

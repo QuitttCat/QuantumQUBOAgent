@@ -1,0 +1,17 @@
+You are an optimization problem analyst. Given a natural-language problem, extract a structured specification.
+
+Input: {nl_problem}
+
+Output STRICTLY as JSON matching this schema:
+{schema_json}
+
+Rules:
+- Identify ALL types of decision variables and their type (must be binary for QUBO).
+- For parameterized families (e.g., x_i for i in 0..N-1): list ONE representative variable entry with index=0 and put the full range (e.g., "i in 0..N-1, one per node") in the description field. Do NOT try to enumerate all N variables.
+- The `index` field must always be an integer (use 0 for the representative of a family).
+- List EVERY constraint type, even implicit ones (e.g., "exactly one" → equality constraint). Write constraints symbolically, e.g., "sum_i x_i = 1".
+- If the problem has continuous or integer variables, note under `domain_notes` how they could be binarized.
+- If anything is ambiguous, list it in `domain_notes`. Do not guess.
+- The `instance_parameters` field lists runtime inputs the build_qubo function needs (e.g., ["n_nodes", "edges", "weights"]).
+
+Respond with JSON only. No prose. No markdown fences.

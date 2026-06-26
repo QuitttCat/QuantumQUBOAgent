@@ -1,0 +1,14 @@
+Hamiltonian Cycle Problem
+
+Given an undirected graph, find a cycle that visits every vertex exactly once
+and returns to the start.
+
+Task:
+Choose a vertex order forming a Hamiltonian cycle.
+
+Objective:
+Minimize the number of missing cycle edges. A value of 0 means a Hamiltonian
+cycle exists.
+
+Goal:
+Return the cycle and minimum missing-edge count.

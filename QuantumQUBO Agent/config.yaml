@@ -1,0 +1,27 @@
+models:
+  planner_agent: qwen/qwen3.6-35b-a3b
+  formulizer_agent: qwen/qwen3.6-35b-a3b
+  judge_agent: qwen/qwen3.6-35b-a3b
+  coder_agent: qwen/qwen3-coder-next
+  debugger_agent: qwen/qwen3.6-35b-a3b
+
+temperatures:
+  planner_agent: 0.0
+  formulizer_agent: 0.0
+  judge_agent: 0.0
+  coder_agent: 0.0
+  debugger_agent: 0.0
+
+retries:
+  restructure: 2
+  formulate: 2
+  code: 3
+
+verification:
+  n_test_instances: 6
+  max_n_vars: 12
+  pass_threshold: 1.0
+
+limits:
+  max_tokens_per_run: 200000
+  use_cache: false
