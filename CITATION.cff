@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+type: software
+title: "QuantumQUBO Agent: Automating QUBO Formulation Generation from Natural Language"
+authors:
+  - family-names: Mondal
+    given-names: Niloy Kumar
+  - family-names: Parvez
+    given-names: Md Rizwan
+repository-code: "https://github.com/QuitttCat/QuantumQUBOAgent"
+url: "https://quitttcat.github.io/QuantumQUBOAgent/"
+license: MIT
+year: 2026
+preferred-citation:
+  type: conference-paper
+  title: "Quantum{QUBO} Agent: Automating Quadratic Unconstrained Binary Optimization ({QUBO}) Formulation Generation from Natural Language"
+  authors:
+    - family-names: Mondal
+      given-names: Niloy Kumar
+    - family-names: Parvez
+      given-names: Md Rizwan
+  collection-title: "ICML 2026 Workshop: AI as a Tool for Mathematics, Computer Science, and Machine Learning"
+  year: 2026
+  url: "https://openreview.net/forum?id=9YTedapat4"

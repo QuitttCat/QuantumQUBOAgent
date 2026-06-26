@@ -1,8 +1,17 @@
 # QuantumQUBO Agent
 
-## Automating Quadratic Unconstrained Binary Optimization (QUBO) Formulation Generation from Natural Language
+### Automating Quadratic Unconstrained Binary Optimization (QUBO) Formulation Generation from Natural Language
 
+[![ICML 2026 Workshop](https://img.shields.io/badge/ICML%202026-AI%20for%20Math%2C%20CS%20%26%20ML-blue?style=flat-square&logo=academia)](https://openreview.net/forum?id=9YTedapat4)
+[![Paper](https://img.shields.io/badge/OpenReview-9YTedapat4-red?style=flat-square&logo=openreview)](https://openreview.net/forum?id=9YTedapat4)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square&logo=python)](https://www.python.org/)
+[![Project Website](https://img.shields.io/badge/Website-QuantumQUBO%20Agent-purple?style=flat-square&logo=github)](https://quitttcat.github.io/QuantumQUBOAgent/)
 
+> **Accepted** at the ICML 2026 Workshop: *AI as a Tool for Mathematics, Computer Science, and Machine Learning*
+> [📄 Paper](https://openreview.net/forum?id=9YTedapat4) · [🌐 Project Website](https://quitttcat.github.io/QuantumQUBOAgent/)
+
+---
 
 ![Architecture Diagram](QuantumQUBO%20Agent/ICML-Page-5-1.png)
 
@@ -427,3 +436,29 @@ pytest tests/
 ```
 
 Covers: brute-force solver, code extraction, schema validation. No LLM calls made.
+
+---
+
+## Citation
+
+If you use this code or the benchmarks in your research, please cite:
+
+```bibtex
+@inproceedings{mondal2026quantumqubo,
+  title     = {Quantum{QUBO} Agent: Automating Quadratic Unconstrained Binary Optimization ({QUBO}) Formulation Generation from Natural Language},
+  author    = {Niloy Kumar Mondal and Md Rizwan Parvez},
+  booktitle = {ICML 2026 Workshop: AI as a Tool for Mathematics, Computer Science, and Machine Learning},
+  year      = {2026},
+  url       = {https://openreview.net/forum?id=9YTedapat4},
+}
+```
+
+If you use the benchmark problems, also cite [QUBOBench](https://quitttcat.github.io/QUBOBench/).
+
+---
+
+## License
+
+This project is released under the [MIT License](LICENSE).
+
+© 2026 Niloy Kumar Mondal, Md Rizwan Parvez
