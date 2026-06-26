@@ -396,7 +396,6 @@
     <a class="nav-logo" href="#">QuantumQUBO Agent</a>
     <div class="nav-links">
       <a href="#overview">Overview</a>
-      <a href="#pipeline">Pipeline</a>
       <a href="#benchmarks">Benchmarks</a>
       <a href="#examples">Examples</a>
       <a href="#cite">Cite</a>
@@ -478,53 +477,6 @@
     <div class="stat-card">
       <span class="stat-num" data-target="9">0</span>
       <span class="stat-label">Application Domains</span>
-    </div>
-  </div>
-</section>
-
-<hr class="section-divider" />
-
-<!-- ══════════════════ PIPELINE ══════════════════ -->
-<section class="section" id="pipeline">
-  <h2 class="section-title">Six-Stage Pipeline</h2>
-  <p class="section-subtitle">Each stage is handled by a dedicated LLM agent with a structured prompt, typed output schema, and judge-gated verification.</p>
-
-  <div class="agents-grid">
-    <div class="agent-card">
-      <span class="agent-stage">Stage 1</span>
-      <h3>Planner Agent</h3>
-      <div class="agent-arrow">NL → StructuredSpec</div>
-      <p>Parses the natural language problem into a structured specification: decision variables, objective function type, constraints, and domain-specific context.</p>
-    </div>
-    <div class="agent-card">
-      <span class="agent-stage">Stage 1b · 2b</span>
-      <h3>Judge Agent</h3>
-      <div class="agent-arrow">Spec &amp; QUBO verification</div>
-      <p>Acts as a gatekeeper at two checkpoints — validates that the spec is complete and correct, then verifies that the QUBO formulation encodes the problem faithfully.</p>
-    </div>
-    <div class="agent-card">
-      <span class="agent-stage">Stage 2</span>
-      <h3>Formulizer Agent</h3>
-      <div class="agent-arrow">StructuredSpec → QUBOFormulation</div>
-      <p>Derives the full QUBO Hamiltonian: encodes the objective, converts constraints to penalty terms, and produces closed-form Q matrix expressions with LaTeX.</p>
-    </div>
-    <div class="agent-card">
-      <span class="agent-stage">Stage 2.5</span>
-      <h3>Debugger Agent</h3>
-      <div class="agent-arrow">Plain-text → JSON test cases</div>
-      <p>Converts human-readable sample instances into structured JSON test cases with ground-truth optimal values, enabling automated verification without an oracle.</p>
-    </div>
-    <div class="agent-card">
-      <span class="agent-stage">Stage 3</span>
-      <h3>Coder Agent</h3>
-      <div class="agent-arrow">QUBOFormulation → Python</div>
-      <p>Translates the symbolic QUBO formulation into a verified <code>build_qubo(instance)</code> function. Tested against all generated cases using brute-force search.</p>
-    </div>
-    <div class="agent-card">
-      <span class="agent-stage">Post-success</span>
-      <h3>Writer Agent</h3>
-      <div class="agent-arrow">Formulation → LaTeX / PDF</div>
-      <p>Generates a polished academic-style write-up of the QUBO derivation, complete with MathJax-rendered equations, for archiving and reproducibility.</p>
     </div>
   </div>
 </section>
